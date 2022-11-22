@@ -40,3 +40,8 @@ Dapat melakukan:
 - Mengubah profil dirinya
 - Melihat list obat yang dapat dibeli
 - Memesan obat
+
+## Alur Pengintegrasian dengan Web
+Semua modul aplikasi ini menggunakan API yang tersedia di web online pharma, yang merupakan proyek tengah semester.
+Form di aplikasi ini akan melakukan request POST ke aplikasi web online-pharma ke endpoint modul yang bersesuaian.
+Selain itu, data aplikasi diambil menggunakan request GET dari aplikasi web online-pharma.

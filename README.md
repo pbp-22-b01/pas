@@ -32,6 +32,7 @@ Role atau peran pengguna beserta deskripsinya:
 ### Admin Aplikasi
 Dapat melakukan:
 - Melihat dan menambahkan data obat
+- Melihat dan menambahkan data apotek
 - Melihat daftar orderan obat
 <br>
 

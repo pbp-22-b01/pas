@@ -1,4 +1,4 @@
-# pas
+# Tugas PAS: Online Pharmacy
 Proyek Akhir Semester PBP 2022-2023 Kelompok B01.
 
 ## Daftar Anggota dan Pembagian Tugas

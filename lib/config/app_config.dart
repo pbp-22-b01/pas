@@ -1,0 +1,1 @@
+const String apiUrl = "pbp-b01-proyek-tengah-semester.herokuapp.com";

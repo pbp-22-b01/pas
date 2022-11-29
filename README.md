@@ -15,26 +15,39 @@ Aplikasi online pharmacy adalah aplikasi yang menyediakan layanan pembelian obat
 
 ## Daftar Modul dan Fitur
 Daftar modul yang akan diimplementasi:
-- Customer<br>
-Melihat dan Mengubah profil kustomer. Model yang dibuat: Customer.
-- Pharmacy<br>
-Melihat dan menambahkan data apotek. (untuk admin aplikasi). Model yang dibuat: Pharmacy.
-- Market<br>
-Laman untuk list obat yang dapat dibeli (untuk customer). Fitur search obat.
-- Medicine<br>
-Melihat dan menambahkan data obat. (untuk admin aplikasi). Model yang dibuat: Medicine.
-- Order<br>
-Laman membuat order baru (untuk customer). Laman melihat order (untuk admin). Model yang dibuat: Order.
+### Customer
+- Melihat dan Mengubah profil kustomer. 
+- Profil kustomer berisi nama, alamat, dan nomor telepon.
+- Model yang dibuat: Customer. 
+### Pharmacy
+Fitur ini dibuat untuk admin aplikasi.
+- Melihat list apotek yang berisi data lengkap (nama dan alamat).
+- Menambahkan data apotek (nama dan alamat).
+- Model yang dibuat: Pharmacy.
+
+### Market
+Fitur ini dibuat untuk kustomer. Dapat diakses user yang tidak belum login.
+- Laman untuk list obat yang dapat dibeli. List obat mengandung informasi nama, stock, dan nama apotek obat berasal.
+- Customer dapat mensearch obat sesuai namanya.
+
+### Medicine
+- Data lengkap obat berisi nama, stok, dan asal apotek.
+- Melihat list obat dengan data tidak detail (hanya namanya saja). Bila item di list diklik, maka akan menunjukkan data lengkapnya.
+- Menambahkan obat dengan data lengkap. Model yang dibuat: Medicine.
+
+### Order
+- Laman membuat order baru untuk customer. Order baru berisi obat yang ingin dibeli dan jumlahnya.
+- Laman melihat list order untuk admin. List order ditampilkan dengan data nama obat, jumlah yang dibeli, dan nama asal apotek.
+- Model yang dibuat: Order.
 
 ## Role
 Role atau peran pengguna beserta deskripsinya:
-
+Perihal kelengkapan data yang akan ditampilkan mengacu pada bagian fitur.
 ### Admin Aplikasi
 Dapat melakukan:
 - Melihat dan menambahkan data obat
 - Melihat dan menambahkan data apotek
 - Melihat daftar orderan obat
-<br>
 
 ### Customer
 Dapat melakukan:

@@ -14,6 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _loginFormKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
+  bool isLoading = false;
 
   void togglePasswordView() {
     setState(() {
@@ -21,20 +22,27 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Future<void> _onSubmitBtnPressed() async {
-    final request = context.watch<CookieRequest>();
-    print(_username);
-    print(_password1);
+  Future<void> _onSubmitBtnPressed(
+      CookieRequest request, ScaffoldMessengerState scaffoldMessenger) async {
+    setState(() {
+      isLoading = true;
+    });
     // 'username' and 'password' should be the values of the user login form.
-    final response = await request.login("$apiUrl/auth/login", {
+    final response = await request.login("$apiUrl/accounts/login/", {
       'username': _username,
       'password': _password1,
     });
     if (request.loggedIn) {
       print("Success Login");
+      const snackBar = SnackBar(content: Text("Berhasil login!"));
+      scaffoldMessenger.showSnackBar(snackBar);
     } else {
-      print("Gagal login");
+      final snackBar = SnackBar(content: Text(response["errors"]));
+      scaffoldMessenger.showSnackBar(snackBar);
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   String _username = "";
@@ -43,10 +51,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     // The rest of your widgets are down below
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: const Text("Login"),
       ),
       drawer: const AppMenu(),
       body: Padding(
@@ -99,7 +108,14 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   ElevatedButton(
-                      onPressed: _onSubmitBtnPressed, child: const Text("Login"))
+                      onPressed: isLoading ?  null : () =>
+                          _onSubmitBtnPressed(request, scaffoldMessenger),
+                      child: const Text("Login")),
+                  const SizedBox(height: 30,),
+                  if (isLoading) const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: CircularProgressIndicator(),
+                  ),
                 ],
               ),
             ),

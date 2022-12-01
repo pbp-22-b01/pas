@@ -22,8 +22,8 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Future<void> _onSubmitBtnPressed(
-      CookieRequest request, ScaffoldMessengerState scaffoldMessenger) async {
+  Future<void> _onSubmitBtnPressed(CookieRequest request,
+      ScaffoldMessengerState scaffoldMessenger) async {
     setState(() {
       isLoading = true;
     });
@@ -32,10 +32,12 @@ class _LoginPageState extends State<LoginPage> {
       'username': _username,
       'password': _password1,
     });
+    if (!mounted) return;
     if (request.loggedIn) {
-      print("Success Login");
       const snackBar = SnackBar(content: Text("Berhasil login!"));
       scaffoldMessenger.showSnackBar(snackBar);
+      Navigator.of(context).pushReplacementNamed(
+          response["user_type"] == "app_admin" ? "/admin/home" : "/home");
     } else {
       final snackBar = SnackBar(content: Text(response["errors"]));
       scaffoldMessenger.showSnackBar(snackBar);
@@ -108,14 +110,19 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   ElevatedButton(
-                      onPressed: isLoading ?  null : () =>
-                          _onSubmitBtnPressed(request, scaffoldMessenger),
+                      onPressed: isLoading
+                          ? null
+                          : () => _onSubmitBtnPressed(
+                              request, scaffoldMessenger),
                       child: const Text("Login")),
-                  const SizedBox(height: 30,),
-                  if (isLoading) const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: CircularProgressIndicator(),
+                  const SizedBox(
+                    height: 30,
                   ),
+                  if (isLoading)
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: CircularProgressIndicator(),
+                    ),
                 ],
               ),
             ),

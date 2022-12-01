@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:online_pharmacy/pages/admin_home_page.dart';
 import 'package:online_pharmacy/pages/home_page.dart';
 import 'package:online_pharmacy/pages/login_page.dart';
+import 'package:online_pharmacy/pages/medicine/medicine_list_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
         routes: {
           "/home": (BuildContext context) => const HomePage(),
           "/login": (BuildContext context) => const LoginPage(),
+          "/admin/home": (BuildContext context) => const AdminHomePage(),
+          "/medicine/list": (BuildContext context) => MedicineListPage(),
         },
       ),
     );

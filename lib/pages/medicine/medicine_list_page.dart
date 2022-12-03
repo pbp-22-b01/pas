@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_pharmacy/api/medicine_api.dart';
 import 'package:online_pharmacy/config/app_config.dart';
 import 'package:online_pharmacy/menus/admin_menu.dart';
+import 'package:online_pharmacy/pages/medicine/medicine_creation_page.dart';
 import 'package:online_pharmacy/pages/medicine/medicine_detail_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,10 @@ class _MedicineListPageState extends State<MedicineListPage> {
         title: const Text("Obat"),
       ),
       drawer: const AdminMenu(),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MedicineCreationPage()));
+      },
+      child: const Icon(Icons.add),),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(

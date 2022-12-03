@@ -28,7 +28,7 @@ class Medicine {
   Map<String, dynamic> toJson() =>
       {
         "name": name,
-        "stock": stock,
+        "stock": "$stock",
         "pharmacy": pharmacy,
       };
 }

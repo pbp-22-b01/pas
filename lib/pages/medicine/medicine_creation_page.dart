@@ -1,6 +1,5 @@
 import 'package:online_pharmacy/api/pharmacy_api.dart';
-import 'package:online_pharmacy/menus/admin_menu.dart';
-import 'package:online_pharmacy/menus/app_menu.dart';
+import 'package:online_pharmacy/config/app_config.dart';
 import 'package:online_pharmacy/models/medicine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,7 +37,6 @@ class _MedicineCreationPageState extends State<MedicineCreationPage> {
       appBar: AppBar(
         title: const Text("Tambah Obat"),
       ),
-      drawer: const AdminMenu(),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: FutureBuilder<List<Pharmacy>>(future: _pharmacyList, builder:
@@ -81,7 +79,9 @@ class _MedicineCreationPageState extends State<MedicineCreationPage> {
                         ],
                         onSaved: (String? val) {
                           setState(() {
-                            _newMedicine.stock = int.parse(val!);
+                            if (val!.isNotEmpty) {
+                              _newMedicine.stock = int.parse(val);
+                            }
                           });
                         },
                         validator: (value) {
@@ -106,11 +106,15 @@ class _MedicineCreationPageState extends State<MedicineCreationPage> {
                         ),
                         onSaved: (e) {
                           setState(() {
-                            _newMedicine.pharmacy = "${e!.id}";
+                            if (e != null) {
+                              _newMedicine.pharmacy = "${e.id}";
+                            }
                           });
                         },
                         onChanged: (e) => setState(() {
-                          _newMedicine.pharmacy = "${e!.id}";
+                          if (e != null) {
+                            _newMedicine.pharmacy = "${e.id}";
+                          }
                         }),
                         validator: (e) {
                           if (e == null) {
@@ -120,9 +124,16 @@ class _MedicineCreationPageState extends State<MedicineCreationPage> {
                         },
                       ),
                     ),
-                    ElevatedButton(
-                        onPressed: _onSubmitBtnPressed,
-                        child: const Text("Simpan"))
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          onPressed: _isSubmitting ? null : _onSubmitBtnPressed,
+                          child: const Text("Simpan")),
+                    ),
+                    if (_isSubmitting) const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: LinearProgressIndicator(),
+                    )
                   ],
                 ));
           }
@@ -140,12 +151,25 @@ class _MedicineCreationPageState extends State<MedicineCreationPage> {
 
   void _onFormChange() {
     _formKey.currentState!.save();
-    _formKey.currentState!.validate();
   }
 
-  void _onSubmitBtnPressed() {
+  Future<void> _onSubmitBtnPressed() async {
     if (_formKey.currentState!.validate()) {
       debugPrint('new medicine: $_newMedicine');
+      final request = Provider.of<CookieRequest>(context, listen: false);
+      setState(() {
+        _isSubmitting = true;
+      });
+      final Map<String, dynamic> response = await request.post("$apiUrl/medicine/create", _newMedicine.toJson());
+      setState(() {
+        _isSubmitting = false;
+      });
+      final String message = response['message'];
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+      if (response['status']) {
+        _formKey.currentState!.reset();
+      }
     }
   }
 }

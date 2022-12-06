@@ -9,7 +9,8 @@ import 'package:provider/provider.dart';
 import '../../models/pharmacy.dart';
 
 class MedicineCreationPage extends StatefulWidget {
-  const MedicineCreationPage({super.key});
+  const MedicineCreationPage({super.key, required this.refreshDataList});
+  final void Function() refreshDataList;
 
   @override
   State<StatefulWidget> createState() => _MedicineCreationPageState();
@@ -29,6 +30,11 @@ class _MedicineCreationPageState extends State<MedicineCreationPage> {
     final request = Provider.of<CookieRequest>(context, listen: false);
     _isLoadingData = true;
     _pharmacyList = fetchPharmacyList(request);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -169,6 +175,7 @@ class _MedicineCreationPageState extends State<MedicineCreationPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
       if (response['status']) {
         _formKey.currentState!.reset();
+        widget.refreshDataList();
       }
     }
   }

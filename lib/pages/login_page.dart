@@ -32,6 +32,8 @@ class _LoginPageState extends State<LoginPage> {
       'username': _username,
       'password': _password1,
     });
+    request.headers["X-CSRFToken"] = request.cookies["csrftoken"] ?? "";
+    request.headers["Referer"] = apiUrl;
     if (!mounted) return;
     if (request.loggedIn) {
       const snackBar = SnackBar(content: Text("Berhasil login!"));

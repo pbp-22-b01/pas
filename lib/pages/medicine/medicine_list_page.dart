@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_pharmacy/api/medicine_api.dart';
 import 'package:online_pharmacy/config/app_config.dart';
 import 'package:online_pharmacy/menus/admin_menu.dart';
+import 'package:online_pharmacy/pages/medicine/medicine_creation_page.dart';
 import 'package:online_pharmacy/pages/medicine/medicine_detail_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -14,19 +15,38 @@ class MedicineListPage extends StatefulWidget {
 }
 
 class _MedicineListPageState extends State<MedicineListPage> {
+  late Future<List<Medicine>> _dataList;
+
+  @override
+  void initState() {
+    super.initState();
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    _dataList = fetchMedicineList(request);
+  }
+
+  void refresh() {
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    setState(() {
+      _dataList = fetchMedicineList(request);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Obat"),
       ),
       drawer: const AdminMenu(),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MedicineCreationPage(refreshDataList: () => refresh())));
+      },
+      child: const Icon(Icons.add),),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: FutureBuilder<List<Medicine>>(
-            future: fetchMedicineList(request),
+            future: _dataList,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return MedicineListView(dataList: snapshot.data!);

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         return request;
       },
       child: MaterialApp(
-        title: 'Flutter App',
+        title: 'Online Pharmacy',
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           "/home": (BuildContext context) => const HomePage(),
           "/login": (BuildContext context) => const LoginPage(),
           "/admin/home": (BuildContext context) => const AdminHomePage(),
-          "/customer/home": (BuildContext context) =>  CustomerHomePage(),
+          "/customer/home": (BuildContext context) =>  const CustomerHomePage(),
           "/medicine/list": (BuildContext context) => MedicineListPage(),
           "/customer/profile": (BuildContext context) => const ProfilePage(),
         },

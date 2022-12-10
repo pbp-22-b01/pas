@@ -3,8 +3,8 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 import '../config/app_config.dart';
 
-Future<List<Customer>> fetchCustomer(CookieRequest request) async {
+Future<Customer> fetchCustomer(CookieRequest request) async {
   final response = await request.get("$apiUrl/customer/profile");
   
-  return response.map<Customer>((record) => Customer.fromJson(record)).toList();
+  return Customer.fromJson(response);
 }

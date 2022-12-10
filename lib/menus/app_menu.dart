@@ -20,7 +20,13 @@ class AppMenu extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushReplacementNamed("/login");
             },
-          )
+          ),
+          ListTile(
+            title: const Text("Market"),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed("/market");
+            },
+          ),
         ],
       ),
     );

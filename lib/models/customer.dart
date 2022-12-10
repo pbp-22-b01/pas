@@ -1,31 +1,34 @@
 
 class Customer {
   int? id;
-  String name, address;
-  int number;
+  String firstname, lastname, address;
+  int phone;
 
-  Customer({required this.name,
+  Customer({required this.firstname,
+    required this.lastname,
     required this.address,
-    required this.number,
+    required this.phone,
     this.id});
 
   factory Customer.fromUserInput() {
-    return Customer(name: "", number: 0, address: "");
+    return Customer(firstname: "",lastname:"", phone: 0, address: "");
   }
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     final field = json["fields"];
     return Customer(
-        name: field["name"],
-        number: field["number"],
+        firstname: field["first_name"],
+        lastname:field["last_name"],
+        phone: field["phone"],
         address: field["address"],
         id: json["pk"]);
   }
 
   Map<String, dynamic> toJson() =>
       {
-        "name": name,
+        "first_name": firstname,
+        "last_name":lastname,
         "address": address,
-        "number": number,
+        "phone": phone,
       };
 }

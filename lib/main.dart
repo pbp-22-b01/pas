@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:online_pharmacy/pages/admin_home_page.dart';
+import 'package:online_pharmacy/pages/customer/profile_page.dart';
 import 'package:online_pharmacy/pages/customer_home_page.dart';
 import 'package:online_pharmacy/pages/home_page.dart';
 import 'package:online_pharmacy/pages/login_page.dart';
@@ -33,8 +34,9 @@ class MyApp extends StatelessWidget {
           "/home": (BuildContext context) => const HomePage(),
           "/login": (BuildContext context) => const LoginPage(),
           "/admin/home": (BuildContext context) => const AdminHomePage(),
-          "/customer/home": (BuildContext context) => const CustomerHomePage(),
+          "/customer/home": (BuildContext context) =>  CustomerHomePage(),
           "/medicine/list": (BuildContext context) => MedicineListPage(),
+          "/customer/profile": (BuildContext context) => const ProfilePage(),
         },
       ),
     );

@@ -15,28 +15,23 @@ class CustomerMenu extends StatelessWidget {
           ListTile(
             title: const Text("Home"),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed("/");
+              Navigator.of(context).pushReplacementNamed("/customer/home");
             },
           ),
           ListTile(
-            title: const Text("Login"),
+            title: const Text("Edit Profile"),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed("/login");
+              Navigator.of(context).pushReplacementNamed("/customer/profile");
             },
+          
           ),
           ListTile(
-            title: const Text("Profile"),
+            title: const Text("Logout"),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed("/profile");
+              Navigator.of(context).pushReplacementNamed("/home");
             },
           )
-          // ListTile(
-          //   title: const Text("Logout"),
-          //   onTap: () {
-          //     logout(request);
-          //     Navigator.of(context).pushNamed("/home");
-          //   },
-          // )
+          
         ],
       ),
     );

@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:online_pharmacy/menus/app_menu.dart';
+import 'package:online_pharmacy/menus/customer_menu.dart';
+
+import 'package:online_pharmacy/api/customer_api.dart';
+import 'package:online_pharmacy/config/app_config.dart';
+import 'package:online_pharmacy/models/customer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,18 +20,25 @@ class ProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
   // TODO: Nangkep dari page login dulu untuk username, nomor, dan alamat
-  String? username;
-  int? nomor;
-  String? alamat;
+  final Customer _update = Customer.fromUserInput();
+  bool isLoading = false;
+  final _phoneController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _firstController = TextEditingController();
+  final _lastController = TextEditingController();
+  // String? username;
+  // int? nomor;
+  // String? alamat;
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile"),
       ),
-      drawer: const AppMenu(),
-      // TODO: Hidden profile klo blm login. Ternary..
+      drawer: const CustomerMenu(),
+      
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -34,61 +50,19 @@ class _MyProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: _firstController,
                     decoration: InputDecoration(
-                      hintText: "Example: Yohan",
-                      labelText: "Username",
+                      icon: const Icon(Icons.chat_bubble_rounded),
+                      hintText: "First Name",
+                      labelText: "First Name",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        username = value!;
-                      });
-                    },
-                    onSaved: (String? value) {
-                      setState(() {
-                        username = value!;
-                      });
-                    },
+                   
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Nama tidak boleh kosong!';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  // Menggunakan padding sebesar 8 pixels
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Contoh: 081212345678",
-                      labelText: "Telepon",
-                      // Menambahkan circular border agar lebih rapi
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    // Menambahkan behavior saat nama diketik
-                    onChanged: (String? value) {
-                      setState(() {
-                        nomor = int.tryParse(value!);
-                      });
-                    },
-                    // Menambahkan behavior saat data disimpan
-                    onSaved: (String? value) {
-                      setState(() {
-                        nomor = int.parse(value!);
-                      });
-                    },
-                    // Validator sebagai validasi form
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Nomor telepon tidak boleh kosong!';
-                      } else if (nomor == null) {
-                        return 'Nomor telepon harus berisi angka!';
+                        return 'Name cannot be empty!';
                       }
                       return null;
                     },
@@ -97,82 +71,143 @@ class _MyProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: _lastController,
                     decoration: InputDecoration(
+                      icon: const Icon(Icons.chat_bubble_rounded),
+                      hintText: "Last Name",
+                      labelText: "Last Name",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                   
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Name cannot be empty!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: _addressController,
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.home),
                       hintText: "Example: Jl. Pegangsaan Timur no 56",
                       labelText: "Alamat",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        alamat = value!;
-                      });
-                    },
-                    onSaved: (String? value) {
-                      setState(() {
-                        alamat = value!;
-                      });
-                    },
+                   
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Alamat tidak boleh kosong!';
+                        return 'Address cannot be empty!';
                       }
                       return null;
                     },
                   ),
                 ),
-                Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 125,
-                        child: TextButton(
-                          child: const Text(
-                            "Submit",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.red),
-                          ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              // TODO: Update the profile
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: _phoneController,
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.phone),
+                      hintText: "Contoh: 081212345678",
+                      labelText: "Telepon",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    validator: (value){
+                    
+                     
+                      if(value==null||value.isEmpty){
+                        return "Please fill out the phone number!";
+                      }
+                      else if(value.length!=12){
+                        return "Please fill out the valid length of 12 number";
+                      }
+                      
+                      return null;
+                    },
+                    
+                  ),),
+
+                  Center(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 125,
+                          child: TextButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.red),
+                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+
+                                // TODO: Update the profile
+                                final response = await request.post("$apiUrl/customer/profile/edit", {
+                                 
+                                  "first_name": _firstController.text,
+                                  "last_name": _lastController.text,
+                                  "address":_addressController.text,
+                                  "phone":_phoneController.text,
+                                });
+                                  if (!mounted) return;
+
+                              final snackBar = SnackBar(content: Text(response["message"]));
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              if(response["status"]){
+                                Navigator.pushReplacementNamed(context, "/customer/home");
+                               }
+                              
+                            
 
                               setState(() {
-                                // TODO: Reset
+                                isLoading = false;
+                             
                               });
 
-                              Navigator.of(context).pushReplacementNamed("/");
                             }
                           },
-                        ),
-                      ),
-                      Container(
-                        width: 100,
-                        child: const Text(""),
-                      ),
-                      Container(
-                        width: 125,
-                        child: TextButton(
-                          child: const Text(
-                            "Back",
-                            style: TextStyle(color: Colors.white),
+                            child: const Text(
+                              "Submit",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.red),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pushReplacementNamed("/");
-                          },
                         ),
-                      ),
-                    ],
+                        Container(
+                          width: 100,
+                          child: const Text(""),
+                        ),
+                        Container(
+                          width: 125,
+                          child: TextButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.red),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushReplacementNamed("/customer/home");
+                            },
+                            child: const Text(
+                              "Back",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
             ),
           ),
         ),

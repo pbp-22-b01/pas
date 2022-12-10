@@ -21,6 +21,8 @@ class _MySignupPageState extends State<SignupPage> {
   final _passwordController = TextEditingController();
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
+  final _firstController = TextEditingController();
+  final _lastController = TextEditingController();
 
 @override
   void dispose(){
@@ -28,6 +30,9 @@ class _MySignupPageState extends State<SignupPage> {
   _passwordController.dispose();
   _phoneController.dispose();
   _addressController.dispose();
+  _firstController.dispose();
+  _lastController.dispose();
+
   super.dispose();
 }
   @override
@@ -138,6 +143,49 @@ class _MySignupPageState extends State<SignupPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: _firstController,
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.chat_bubble_rounded),
+                      hintText: "First Name",
+                      labelText: "First Name",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                   
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Name cannot be empty!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: _lastController,
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.chat_bubble_rounded),
+                      hintText: "Last Name",
+                      labelText: "Last Name",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                   
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Name cannot be empty!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: _addressController,
                     decoration: InputDecoration(
                       icon: const Icon(Icons.home),
                       hintText: "Example: Jl. Pegangsaan Timur no 56",
@@ -200,11 +248,11 @@ class _MySignupPageState extends State<SignupPage> {
                                 isLoading = true;
                               });
                             if (_formKey.currentState!.validate()) {
-                              final response = await request.post("$apiUrl/customer/register/", {
+                              final response = await request.post("$apiUrl/customer/register", {
                                 "username" : _usernameController.text,
                                 "password" : _passwordController.text,
-                                "first_name": "",
-                                "last_name": "",
+                                "first_name": _firstController.text,
+                                "last_name": _lastController.text,
                                 "address":_addressController.text,
                                 "phone":_phoneController.text,
                                
@@ -214,10 +262,10 @@ class _MySignupPageState extends State<SignupPage> {
                               );
                               if (!mounted) return;
 
-                              final snackBar = SnackBar(content: Text(response.message));
+                              final snackBar = SnackBar(content: Text(response["message"]));
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              if(response.status){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()),
-                               );
+                              if(response["status"]){
+                                Navigator.pushReplacementNamed(context, "/login");
                                }
                               
                             
@@ -226,12 +274,7 @@ class _MySignupPageState extends State<SignupPage> {
                                isLoading = false;
                              
                               });
-                              
 
-                              Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => const LoginPage()),
-                          );
                             }
                           },
                           child: const Text(

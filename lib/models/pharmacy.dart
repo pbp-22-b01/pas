@@ -20,4 +20,3 @@ class Pharmacy {
         "address": address,
       };
 }
-

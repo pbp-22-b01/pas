@@ -7,4 +7,3 @@ Future<List<Pharmacy>> fetchPharmacyList(CookieRequest request) async {
   final response = await request.get("$apiUrl/pharmacy/retrieve");
   return response.map<Pharmacy>((record) => Pharmacy.fromJson(record)).toList();
 }
-

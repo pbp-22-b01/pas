@@ -33,12 +33,14 @@ class _LoginPageState extends State<LoginPage> {
       'username': _username,
       'password': _password1,
     });
+    request.headers["X-CSRFToken"] = request.cookies["csrftoken"] ?? "";
+    request.headers["Referer"] = apiUrl;
     if (!mounted) return;
     if (request.loggedIn) {
       const snackBar = SnackBar(content: Text("Berhasil login!"));
       scaffoldMessenger.showSnackBar(snackBar);
       Navigator.of(context).pushReplacementNamed(
-          response["user_type"] == "app_admin" ? "/admin/home" : "customer/home");
+          response["user_type"] == "app_admin" ? "/admin/home" : "/customer/home");
     } else {
       final snackBar = SnackBar(content: Text(response["errors"]));
       scaffoldMessenger.showSnackBar(snackBar);

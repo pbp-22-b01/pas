@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:online_pharmacy/pages/admin_home_page.dart';
 import 'package:online_pharmacy/pages/customer_home_page.dart';

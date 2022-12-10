@@ -23,16 +23,16 @@ class AdminMenu extends StatelessWidget {
                 Navigator.of(context).pushReplacementNamed("/medicine/list"),
           ),
           ListTile(
+            title: const Text("Market"),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed("/market");
+            },
+          ),
+          ListTile(
             title: const Text("Logout"),
             onTap: () {
               logout(request);
               Navigator.of(context).pushNamed("/home");
-            },
-          ),
-          ListTile(
-            title: const Text("Market"),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed("/market");
             },
           ),
         ],

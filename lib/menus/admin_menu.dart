@@ -14,11 +14,13 @@ class AdminMenu extends StatelessWidget {
         children: [
           ListTile(
             title: const Text("Home"),
-            onTap: () => Navigator.of(context).pushReplacementNamed("/admin/home"),
+            onTap: () =>
+                Navigator.of(context).pushReplacementNamed("/admin/home"),
           ),
           ListTile(
             title: const Text("Obat"),
-            onTap: () => Navigator.of(context).pushReplacementNamed("/medicine/list"),
+            onTap: () =>
+                Navigator.of(context).pushReplacementNamed("/medicine/list"),
           ),
           ListTile(
             title: const Text("Logout"),
@@ -26,7 +28,13 @@ class AdminMenu extends StatelessWidget {
               logout(request);
               Navigator.of(context).pushNamed("/home");
             },
-          )
+          ),
+          ListTile(
+            title: const Text("Market"),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed("/market");
+            },
+          ),
         ],
       ),
     );

@@ -138,6 +138,7 @@ class _MySignupPageState extends State<SignupPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: _addressController,
                     decoration: InputDecoration(
                       icon: const Icon(Icons.home),
                       hintText: "Example: Jl. Pegangsaan Timur no 56",
@@ -200,11 +201,11 @@ class _MySignupPageState extends State<SignupPage> {
                                 isLoading = true;
                               });
                             if (_formKey.currentState!.validate()) {
-                              final response = await request.post("$apiUrl/customer/register/", {
+                              final response = await request.post("$apiUrl/customer/register", {
                                 "username" : _usernameController.text,
                                 "password" : _passwordController.text,
-                                "first_name": "",
-                                "last_name": "",
+                                "first_name": "X",
+                                "last_name": "X",
                                 "address":_addressController.text,
                                 "phone":_phoneController.text,
                                
@@ -214,10 +215,10 @@ class _MySignupPageState extends State<SignupPage> {
                               );
                               if (!mounted) return;
 
-                              final snackBar = SnackBar(content: Text(response.message));
+                              final snackBar = SnackBar(content: Text(response["message"]));
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              if(response.status){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()),
-                               );
+                              if(response["status"]){
+                                Navigator.pushReplacementNamed(context, "/login");
                                }
                               
                             
@@ -226,12 +227,7 @@ class _MySignupPageState extends State<SignupPage> {
                                isLoading = false;
                              
                               });
-                              
 
-                              Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => const LoginPage()),
-                          );
                             }
                           },
                           child: const Text(

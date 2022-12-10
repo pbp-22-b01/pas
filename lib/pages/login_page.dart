@@ -125,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: CircularProgressIndicator(),
                     ),
                     Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Text('Does not have account?'),
                 TextButton(
@@ -141,7 +142,6 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 )
               ],
-              mainAxisAlignment: MainAxisAlignment.center,
             ),
 
                 ],

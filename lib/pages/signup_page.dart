@@ -15,13 +15,15 @@ class SignupPage extends StatefulWidget {
 
 class _MySignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
+   bool isLoading = false;
   // TODO: Nangkep dari page login dulu untuk username, nomor, dan alamat
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
 
-void dispose(){
+@override
+  void dispose(){
   _usernameController.dispose();
   _passwordController.dispose();
   _phoneController.dispose();
@@ -61,6 +63,13 @@ void dispose(){
                       if(value==null||value.isEmpty){
                         return "Please fill out the username!";
                       }
+                      else if(value.length>150){
+                        return "Require 150 characters or fewer";
+                      }
+                     
+                      else if(value.contains(RegExp(r'[^a-zA-Z0-9@.+-_]'))  ){
+                        return "Require letters, digits and @/./+/-/_ only.";
+                      }
                       
                       return null;
                     },
@@ -88,7 +97,10 @@ void dispose(){
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password';
                       } else if (value.length < 8) {
-                        return 'Please enter password with the length of 8 or greater characters';
+                        return 'Your password must contain at least 8 characters.';
+                      }
+                      else if(value.contains(RegExp(r'^[0-9]+$'))){
+                        return 'Your password can’t be entirely numeric.';
                       }
                       return null;
                     },
@@ -114,7 +126,7 @@ void dispose(){
                       if (value == null || value.isEmpty) {
                         return 'Please re-enter your password';
                       } else if (value.length < 8) {
-                        return 'Please enter password with the length of 8 or greater characters';
+                        return 'Your password must contain at least 8 characters.';
                       }
                       else if (value != _passwordController.text){
                         return "Password invalid!";
@@ -159,7 +171,7 @@ void dispose(){
                       ),
                     ),
                     validator: (value){
-                      String regexPattern = r'^(?:[+0][1-9])?[0-9]{10,12}$';
+                    
                      
                       if(value==null||value.isEmpty){
                         return "Please fill out the phone number!";
@@ -179,24 +191,39 @@ void dispose(){
                       Container(
                         width: 125,
                         child: TextButton(
-                          child: const Text(
-                            "Submit",
-                            style: TextStyle(color: Colors.white),
-                          ),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.red),
                           ),
                           onPressed: () async {
+                             setState(() {
+                                isLoading = true;
+                              });
                             if (_formKey.currentState!.validate()) {
-                              final response = await request.login("$apiUrl/accounts/login/", {
+                              final response = await request.post("$apiUrl/customer/register/", {
                                 "username" : _usernameController.text,
-                                "password" : _passwordController.text}
+                                "password" : _passwordController.text,
+                                "first_name": "",
+                                "last_name": "",
+                                "address":_addressController.text,
+                                "phone":_phoneController.text,
+                               
+                              
+                                
+                                }
                               );
+                              if (!mounted) return;
+
+                              final snackBar = SnackBar(content: Text(response.message));
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              if(response.status){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()),
+                               );
+                               }
+                              
                             
 
                               setState(() {
-                               
+                               isLoading = false;
                              
                               });
                               
@@ -207,6 +234,10 @@ void dispose(){
                           );
                             }
                           },
+                          child: const Text(
+                            "Submit",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                       Container(

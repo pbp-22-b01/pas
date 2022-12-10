@@ -31,6 +31,21 @@ class _MyProfilePageState extends State<ProfilePage> {
   // String? alamat;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final customer = ModalRoute.of(context)!.settings.arguments as Customer;
+    _phoneController.text = customer.phone;
+    _addressController.text = customer.address;
+    _firstController.text = customer.firstname;
+    _lastController.text = customer.lastname;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
@@ -153,7 +168,6 @@ class _MyProfilePageState extends State<ProfilePage> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
 
-                                // TODO: Update the profile
                                 final response = await request.post("$apiUrl/customer/profile/edit", {
                                  
                                   "first_name": _firstController.text,

@@ -21,7 +21,7 @@ class CustomerMenu extends StatelessWidget {
           ListTile(
             title: const Text("Edit Profile"),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed("/customer/profile");
+              Navigator.of(context).pushReplacementNamed("/customer/profile/edit");
             },
           
           ),

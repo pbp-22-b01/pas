@@ -51,7 +51,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
             future: _customer,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return CustomerView(dataList: snapshot.data!);
+                return CustomerView(customer: snapshot.data!);
               }
               if (snapshot.hasError) {
                 return Text("${snapshot.error}");
@@ -66,9 +66,9 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
 }
 
 class CustomerView extends StatelessWidget {
-  final Customer dataList;
+  final Customer customer;
 
-  const CustomerView({super.key, required this.dataList});
+  const CustomerView({super.key, required this.customer});
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +76,12 @@ class CustomerView extends StatelessWidget {
       child: Center(
           child: Column(
               children: [
-                Text("Hello, ${dataList.firstname} ${dataList.lastname}!", style: Theme.of(context).textTheme.titleLarge,),
-                Text("Address: ${dataList.address} ", style: Theme.of(context).textTheme.bodyMedium,),
-                Text("Phone: ${dataList.phone} ", style: Theme.of(context).textTheme.bodyMedium,),
-
+                Text("Hello, ${customer.firstname} ${customer.lastname}!", style: Theme.of(context).textTheme.titleLarge,),
+                Text("Address: ${customer.address} ", style: Theme.of(context).textTheme.bodyMedium,),
+                Text("Phone: ${customer.phone} ", style: Theme.of(context).textTheme.bodyMedium,),
+                ElevatedButton(onPressed: () {
+                  Navigator.pushReplacementNamed(context, "/customer/profile/edit", arguments: customer);
+                }, child: const Text("Edit Profile"))
               ]
           )
 

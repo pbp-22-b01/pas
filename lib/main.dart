@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           "/admin/home": (BuildContext context) => const AdminHomePage(),
           "/customer/home": (BuildContext context) =>  const CustomerHomePage(),
           "/medicine/list": (BuildContext context) => MedicineListPage(),
-          "/customer/profile": (BuildContext context) => const ProfilePage(),
+          "/customer/profile/edit": (BuildContext context) => const ProfilePage(),
         },
       ),
     );

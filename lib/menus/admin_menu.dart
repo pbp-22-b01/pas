@@ -24,32 +24,8 @@ class AdminMenu extends StatelessWidget {
             onTap: () => Navigator.of(context).pushReplacementNamed("/medicine/list"),
           ),
           ListTile(
-            title: const Text('Create New Pharmacy'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const TambahBudgetPage()),
-              );
-            },
-          ),
-          ListTile(
-            title: const Text('Data Pharmacy'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const DataBudgetPage()),
-              );
-            },
-          ),
-          ListTile(
-            title: const Text('Pharm'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context, 
-                MaterialPageRoute(builder: (context) => const PharmacyPage())
-              );
-            },
+            title: const Text("PharmacyList"),
+            onTap: () => Navigator.of(context).pushReplacementNamed("/pharmacy/list"),
           ),
           ListTile(
             title: const Text("Logout"),

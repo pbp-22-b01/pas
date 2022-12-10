@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:online_pharmacy/api/account_api.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:online_pharmacy/pages/pharmacy/tambah_budget.dart';
+import 'package:online_pharmacy/pages/pharmacy/data_budget.dart';
+import 'package:online_pharmacy/pages/pharmacy/pharmacy.dart';
 
 class AdminMenu extends StatelessWidget {
   const AdminMenu({super.key});
@@ -19,6 +22,34 @@ class AdminMenu extends StatelessWidget {
           ListTile(
             title: const Text("Obat"),
             onTap: () => Navigator.of(context).pushReplacementNamed("/medicine/list"),
+          ),
+          ListTile(
+            title: const Text('Create New Pharmacy'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const TambahBudgetPage()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('Data Pharmacy'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DataBudgetPage()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('Pharm'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context, 
+                MaterialPageRoute(builder: (context) => const PharmacyPage())
+              );
+            },
           ),
           ListTile(
             title: const Text("Logout"),

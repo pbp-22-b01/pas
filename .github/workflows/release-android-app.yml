@@ -10,6 +10,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
       - name: Setup Fastlane
         working-directory: ./android  # <-- Make sure you have this
         run: bundle install

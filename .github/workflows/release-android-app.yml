@@ -41,9 +41,9 @@ jobs:
         with:
           flutter-version: 3.3.7
       - run: flutter pub get
-      - run: flutter format --set-exit-if-changed .
-      - run: flutter analyze .
-      - run: flutter test
+      #- run: flutter format --set-exit-if-changed .
+      #- run: flutter analyze .
+      #- run: flutter test
       - run: flutter build apk
       - name: Run Fastlane
         uses: maierj/fastlane-action@v2.0.1

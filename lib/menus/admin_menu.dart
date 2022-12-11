@@ -27,12 +27,7 @@ class AdminMenu extends StatelessWidget {
               Navigator.of(context).pushNamed("/home");
             },
           ),
-          ListTile(
-            title: const Text("Market"),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed("/market");
-            },
-          ),
+          
         ],
       ),
     );

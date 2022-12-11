@@ -1,4 +1,3 @@
-
 class Customer {
   int? id;
   String firstname, lastname, address;

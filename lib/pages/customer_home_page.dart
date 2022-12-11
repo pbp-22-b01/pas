@@ -76,50 +76,12 @@ class CustomerView extends StatelessWidget {
       child: Center(
           child: Column(
               children: [
-                const Text(""),  
-                const Text(""),  
-                  Container(
-                    padding: const  EdgeInsets.all(8.0),
-                    decoration:  BoxDecoration(
-                      border: Border.all(
-                             ),
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                     
-                     
-                    ),
-                
-                
-             
-                child: Text("Hello, ${customer.firstname} ${customer.lastname}! ", style: const TextStyle(fontSize: 50,fontWeight: FontWeight.bold,color: Colors.red ))),
-                
-                const Text("\n\n"), 
-                const Text("Phone:"),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children:  [
-                    const Icon(Icons.phone_rounded),
-                    Text(" ${customer.phone} ", style: Theme.of(context).textTheme.bodyLarge,),
-                   
-                   
-                  ],
-                ),
-                const Text("\n"), 
-                const Text("Address:"),
-                 Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children:  [
-                    const Icon(Icons.home_rounded),
-                    Text(" ${customer.address} ", style: Theme.of(context).textTheme.bodyLarge,),
-                   
-                   
-                  ],
-                ),
-                
-                
-                const Text("\n\n"),  
+                Text("Hello, ${customer.firstname} ${customer.lastname}!", style: Theme.of(context).textTheme.titleLarge,),
+                Text("Address: ${customer.address} ", style: Theme.of(context).textTheme.bodyMedium,),
+                Text("Phone: ${customer.phone} ", style: Theme.of(context).textTheme.bodyMedium,),
                 ElevatedButton(onPressed: () {
                   Navigator.pushReplacementNamed(context, "/customer/profile/edit", arguments: customer);
-                }, child:  const Text("Edit Profile",))
+                }, child: const Text("Edit Profile"))
               ]
           )
 

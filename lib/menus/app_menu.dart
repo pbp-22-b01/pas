@@ -18,7 +18,7 @@ class AppMenu extends StatelessWidget {
           ListTile(
             title: const Text("Market"),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed("/market");
+              Navigator.of(context).pushNamed("/market");
             },
           ),
           ListTile(

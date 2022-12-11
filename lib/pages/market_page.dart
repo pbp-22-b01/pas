@@ -56,7 +56,6 @@ class _MarketPageState extends State<MarketPage> {
           title: const Text('Online Pharma Market'),
           centerTitle: true,
         ),
-        drawer: const AppMenu(),
         body: Column(
           children: <Widget>[
             buildSearch(),

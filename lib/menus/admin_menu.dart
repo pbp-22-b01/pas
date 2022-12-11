@@ -27,7 +27,14 @@ class AdminMenu extends StatelessWidget {
           ),
           ListTile(
             title: const Text("PharmacyList"),
-            onTap: () => Navigator.of(context).pushReplacementNamed("/pharmacy/list"),
+            onTap: () =>
+                Navigator.of(context).pushReplacementNamed("/pharmacy/list"),
+          ),
+          ListTile(
+            title: const Text("Market"),
+            onTap: () {
+              Navigator.of(context).pushNamed("/market");
+            },
           ),
           ListTile(
             title: const Text("Logout"),

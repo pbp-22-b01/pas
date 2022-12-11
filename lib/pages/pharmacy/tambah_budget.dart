@@ -54,7 +54,7 @@ class _TambahBudgetPageState extends State<TambahBudgetPage> {
       appBar: AppBar(
         title: Text('⚕️Create New Pharmacy!⚕️'),
       ),
-      drawer: AdminMenu(),
+      //drawer: AdminMenu(),
       body: Form(
         key: _formKey,
         child: Container(

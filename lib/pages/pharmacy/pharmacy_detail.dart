@@ -6,63 +6,30 @@ import 'package:online_pharmacy/menus/admin_menu.dart';
 class PharmacyDetail extends StatelessWidget{
   final Pharmacy pharmacy;
   const PharmacyDetail({super.key, required this.pharmacy});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pharmacy'),
-      ),
-      drawer: AdminMenu(),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: Column(children: [
-          Center(
-            child: Text(
-              pharmacy.name,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+      appBar: AppBar(title: const Text("Detail Pharmacy"),),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Column(children: [
+            Text(pharmacy.name, style: Theme.of(context).textTheme.titleLarge,),
+            const SizedBox(height: 20,),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Table(children: [
+                  TableRow(children: [
+                    const Text("Alamat"),
+                    Text(pharmacy.address),
+                  ]),
+                ],),
+              ),
             )
-          ),
-          const SizedBox(height: 10,),
-
-          Column(
-            children: [
-              const SizedBox(height: 10,),
-              Row(
-                children: [
-                  const Text(
-                    "Alamat: ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  Text(
-                    pharmacy.address,
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10,),
-            ]
-          ),
-
-          const Spacer(),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-
-              child: const Text(
-                "Back",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
-        ]),
-      )
+          ],),
+        ),
+      ),
     );
   }
 }

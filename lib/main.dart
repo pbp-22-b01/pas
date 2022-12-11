@@ -7,6 +7,8 @@ import 'package:online_pharmacy/pages/market_page.dart';
 import 'package:online_pharmacy/pages/pharmacy/pharmacy.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:online_pharmacy/pages/customer/profile_page.dart';
+import 'package:online_pharmacy/pages/customer_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         return request;
       },
       child: MaterialApp(
-        title: 'Flutter App',
+        title: 'Online Pharmacy',
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
@@ -35,6 +37,8 @@ class MyApp extends StatelessWidget {
           "/medicine/list": (BuildContext context) => MedicineListPage(),
           "/pharmacy/list": (BuildContext context) => PharmacyPage(),
           "/market": (BuildContext context) => const MarketPage(),
+          "/customer/home": (BuildContext context) =>  const CustomerHomePage(),
+          "/customer/profile/edit": (BuildContext context) => const ProfilePage(),
         },
       ),
     );

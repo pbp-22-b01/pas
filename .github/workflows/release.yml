@@ -46,7 +46,7 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(TZ='Asia/Jakarta' date +'%A %d-%m-%Y %T WIB')"
 
-      - name: Release APK
+      - name: Release APK Github
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
@@ -55,3 +55,13 @@ jobs:
           name: 'v${{ steps.version.outputs.version }}'
           token: ${{ secrets.GH_TOKEN }}
           tag: ${{ steps.version.outputs.version }}
+
+      - name: Release APK Firebase
+        uses: maierj/fastlane-action@v2.0.1
+        with:
+          lane: build_firebase
+          subdirectory: android
+          bundle-install-path: "~/vendor/bundle"
+        env:
+          FIREBASE_APP_ID: "${{ secrets.FIREBASE_APP_ID }}"
+          FIREBASE_TOKEN: "${{ secrets.FIREBASE_TOKEN }}"

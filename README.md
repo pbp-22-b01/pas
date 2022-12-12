@@ -1,18 +1,8 @@
 # Tugas PAS: Online Pharmacy
+[![Release](https://github.com/pbp-22-b01/pas/actions/workflows/release.yml/badge.svg)](https://github.com/pbp-22-b01/pas/actions/workflows/release.yml)
+
 Proyek Akhir Semester PBP 2022-2023 Kelompok B01.
 
-## Yang perlu dilakukan
-
-Menerapkan widget untuk layout dan input (Material atau Cupertino, sesuai integrasi kelompok masing-masing).
-Menerapkan event handling.
-Menerapkan pemanggilan asinkronus ke web service Django 
-Pengolahan data respons JSON dari web service Django dan menampilkan hasilnya di aplikasi.
-
-membuat register/sign up dan logout 
-membuat laman dashboard customer
-membuat modul customer dan mengintegrasikannya dengan modul lainnya
-
-Tiap line mohon diberikan penjelasan :)
 
 ## Deskripsi Aplikasi
 Aplikasi ini bernama online pharmacy. Aplikasi ini merupakan aplikasi versi mobile dari aplikasi yang dibuat untuk proyek tengah semester.

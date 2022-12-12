@@ -1,5 +1,6 @@
 # Tugas PAS: Online Pharmacy
 [![Release](https://github.com/pbp-22-b01/pas/actions/workflows/release.yml/badge.svg)](https://github.com/pbp-22-b01/pas/actions/workflows/release.yml)
+[![Release Firebase](https://github.com/pbp-22-b01/pas/actions/workflows/release-firebase.yml/badge.svg)](https://github.com/pbp-22-b01/pas/actions/workflows/release-firebase.yml)
 
 Proyek Akhir Semester PBP 2022-2023 Kelompok B01.
 

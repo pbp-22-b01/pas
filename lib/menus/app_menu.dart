@@ -16,11 +16,17 @@ class AppMenu extends StatelessWidget {
             },
           ),
           ListTile(
+            title: const Text("Market"),
+            onTap: () {
+              Navigator.of(context).pushNamed("/market");
+            },
+          ),
+          ListTile(
             title: const Text("Login"),
             onTap: () {
               Navigator.of(context).pushReplacementNamed("/login");
             },
-          )
+          ),
         ],
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_pharmacy/config/app_config.dart';
 import 'package:online_pharmacy/menus/app_menu.dart';
-import 'package:online_pharmacy/pages/signup_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -126,26 +125,6 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: CircularProgressIndicator(),
                     ),
-                    Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text('Does not have account?'),
-                TextButton(
-                  child: const Text(
-                    'Sign up',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () {
-                    //signup screen
-                    Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignupPage()),
-                  );
-                  },
-                )
-              ],
-            ),
-
                 ],
               ),
             ),

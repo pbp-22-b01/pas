@@ -12,8 +12,7 @@ class MedicineDetailPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
-          child: Column(
-            children: [
+          child: Column(children: [
             Text(medicine.name, style: Theme.of(context).textTheme.titleLarge,),
             const SizedBox(height: 20,),
             Card(

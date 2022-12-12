@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:online_pharmacy/pages/admin_home_page.dart';
-import 'package:online_pharmacy/pages/customer/profile_page.dart';
-import 'package:online_pharmacy/pages/customer_home_page.dart';
 import 'package:online_pharmacy/pages/home_page.dart';
 import 'package:online_pharmacy/pages/login_page.dart';
 import 'package:online_pharmacy/pages/medicine/medicine_list_page.dart';
+import 'package:online_pharmacy/pages/market_page.dart';
+import 'package:online_pharmacy/pages/pharmacy/pharmacy.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:online_pharmacy/pages/customer/profile_page.dart';
+import 'package:online_pharmacy/pages/customer_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,8 +34,10 @@ class MyApp extends StatelessWidget {
           "/home": (BuildContext context) => const HomePage(),
           "/login": (BuildContext context) => const LoginPage(),
           "/admin/home": (BuildContext context) => const AdminHomePage(),
-          "/customer/home": (BuildContext context) =>  const CustomerHomePage(),
           "/medicine/list": (BuildContext context) => MedicineListPage(),
+          "/pharmacy/list": (BuildContext context) => PharmacyPage(),
+          "/market": (BuildContext context) => const MarketPage(),
+          "/customer/home": (BuildContext context) =>  const CustomerHomePage(),
           "/customer/profile/edit": (BuildContext context) => const ProfilePage(),
         },
       ),

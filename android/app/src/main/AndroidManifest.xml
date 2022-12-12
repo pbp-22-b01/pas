@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pbp2022.b01.online_pharmacy">
+    package="com.pbp_22_b01.online_pharmacy">
    <application
         android:label="online_pharmacy"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,4 +31,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <!-- Required to fetch data from the internet. -->
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

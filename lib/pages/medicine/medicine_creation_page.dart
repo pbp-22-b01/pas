@@ -180,4 +180,3 @@ class _MedicineCreationPageState extends State<MedicineCreationPage> {
     }
   }
 }
-

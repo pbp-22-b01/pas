@@ -4,6 +4,8 @@
 
 Proyek Akhir Semester PBP 2022-2023 Kelompok B01.
 
+## Rilis Firebase
+https://appdistribution.firebase.dev/i/31efa9ed594cc373
 
 ## Deskripsi Aplikasi
 Aplikasi ini bernama online pharmacy. Aplikasi ini merupakan aplikasi versi mobile dari aplikasi yang dibuat untuk proyek tengah semester.

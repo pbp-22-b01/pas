@@ -1,4 +1,4 @@
-name: release-android-app
+name: Release Firebase
 on:
   push:
     branches:

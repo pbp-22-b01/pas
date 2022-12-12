@@ -167,7 +167,7 @@ class _MyProfilePageState extends State<ProfilePage> {
                             ),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-
+                                isLoading = true;
                                 final response = await request.post("$apiUrl/customer/profile/edit", {
                                  
                                   "first_name": _firstController.text,

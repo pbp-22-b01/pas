@@ -7,9 +7,9 @@ Proyek Akhir Semester PBP 2022-2023 Kelompok B01.
 ## Daftar Anggota
 Kelompok B01:
 - Elang Permana: Order
-- Nadhira Shahnaz Zain: Pharmacy
 - Naufal Weise Widyatama: Medicine, Login
 - Rafa Maritza: Market
+- Nadhira Shahnaz Zain: Pharmacy
 - Taqiya Zayin Hanafie: Customer
 
 ## Rilis Firebase

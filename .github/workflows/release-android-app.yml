@@ -1,56 +1,56 @@
-#name: release-android-app
-#on:
-#  push:
-#    branches:
-#      - 'main'
-#      - 'ci'
-#jobs:
-##  build:
-##    runs-on: ubuntu-latest
-##    defaults:
-##      run:
-##        working-directory: ./android
-##    steps:
-##      - uses: actions/checkout@v2
-##      - name: Set up ruby
-##        uses: ruby/setup-ruby@v1
-##        with:
-##          ruby-version: '3.0'
-##      - name: Set up gradle
-##        uses: actions/setup-java@v1
-##        with:
-##          java-version: 1.8
-##      - name: Setup Fastlane
-##        working-directory: ./android  # <-- Make sure you have this
-##        run: bundle install
-##      - name: Run Fastlane
-##        working-directory: ./android  # <-- Make sure you have this
-##        run: bundle exec fastlane android_beta_app
-##        env:
-##          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-##          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-#  build_to_firebase:
-#    name: Deploy Android build to Firebase App Distribution
+name: release-android-app
+on:
+  push:
+    branches:
+      - 'main'
+      - 'ci'
+jobs:
+#  build:
 #    runs-on: ubuntu-latest
+#    defaults:
+#      run:
+#        working-directory: ./android
 #    steps:
-#      - uses: actions/checkout@v1
-#      - uses: actions/setup-java@v1
+#      - uses: actions/checkout@v2
+#      - name: Set up ruby
+#        uses: ruby/setup-ruby@v1
 #        with:
-#          java-version: 11
-#      - uses: subosito/flutter-action@v1
+#          ruby-version: '3.0'
+#      - name: Set up gradle
+#        uses: actions/setup-java@v1
 #        with:
-#          flutter-version: 3.3.7
-#      - run: flutter pub get
-#      #- run: flutter format --set-exit-if-changed .
-#      #- run: flutter analyze .
-#      #- run: flutter test
-#      - run: flutter build apk
+#          java-version: 1.8
+#      - name: Setup Fastlane
+#        working-directory: ./android  # <-- Make sure you have this
+#        run: bundle install
 #      - name: Run Fastlane
-#        uses: maierj/fastlane-action@v2.0.1
-#        with:
-#          lane: build_firebase
-#          subdirectory: android
-#          bundle-install-path: "~/vendor/bundle"
+#        working-directory: ./android  # <-- Make sure you have this
+#        run: bundle exec fastlane android_beta_app
 #        env:
-#          FIREBASE_APP_ID: "${{ secrets.FIREBASE_APP_ID }}"
-#          FIREBASE_TOKEN: "${{ secrets.FIREBASE_TOKEN }}"
+#          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+#          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  build_to_firebase:
+    name: Deploy Android build to Firebase App Distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: 3.3.7
+      - run: flutter pub get
+      #- run: flutter format --set-exit-if-changed .
+      #- run: flutter analyze .
+      #- run: flutter test
+      - run: flutter build apk
+      - name: Run Fastlane
+        uses: maierj/fastlane-action@v2.0.1
+        with:
+          lane: build_firebase
+          subdirectory: android
+          bundle-install-path: "~/vendor/bundle"
+        env:
+          FIREBASE_APP_ID: "${{ secrets.FIREBASE_APP_ID }}"
+          FIREBASE_TOKEN: "${{ secrets.FIREBASE_TOKEN }}"
